@@ -1,12 +1,13 @@
 #!/bin/sh
+# by Martin Seeler
 
-# the final changelog file
+# destination of the final changelog file
 OUTPUT_FILE=CHANGELOG.md
 
-# generate the changelogs
-git --no-pager log --no-merges --format="%ai %aN %n%n%x09* %s%d%n" > $OUTPUT_FILE
+# generate the changelog
+git --no-pager log --no-merges --format="### %s%d%n>%aD%n%n>Author: %aN (%aE)%n%n>Commiter: %cN (%cE)%n%n%b%n%N%n" > $OUTPUT_FILE
 
-# prevent recursion! 
+# prevent recursion!
 # since a 'commit --amend' will trigger the post-commit script again
 # we have to check if the changelog file has changed or not
 res=$(git status --porcelain | grep $OUTPUT_FILE | wc -l)
