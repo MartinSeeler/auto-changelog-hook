@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Automatic CHANGELOG Git Hook by MartinSeeler</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Automatic CHANGELOG Git Hook</h1>
+        <p>A simple bash script to automatically generate a CHANGELOG.md file with every git commit.</p>
+
+        <p class="view"><a href="https://github.com/MartinSeeler/auto-changelog-hook">View the Project on GitHub <small>MartinSeeler/auto-changelog-hook</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/MartinSeeler/auto-changelog-hook/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/MartinSeeler/auto-changelog-hook/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/MartinSeeler/auto-changelog-hook">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="automatic-changelog-git-hook" class="anchor" href="#automatic-changelog-git-hook" aria-hidden="true"><span class="octicon octicon-link"></span></a>Automatic CHANGELOG Git Hook</h1>
+
+<blockquote>
+<p>A simple bash script to automatically generate a <code>CHANGELOG.md</code> file with every git commit.</p>
+</blockquote>
+
+<h2>
+<a id="how-to-use-it" class="anchor" href="#how-to-use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use it</h2>
+
+<p>Copy the file <code>post-commit</code> into the directory <code>.git/hooks/</code> of your git project and make it executable.</p>
+
+<div class="highlight highlight-bash"><pre>chmod +x post-commit
+cp post-commit <span class="pl-smi">${YOUR_GIT_PROJECT_PATH}</span>/.git/hooks</pre></div>
+
+<h3>
+<a id="side-note" class="anchor" href="#side-note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Side Note</h3>
+
+<p>This hook is only triggered locally, so if you use this with your team, everybody has to store the hook inside his or her local copy, since the <code>.git</code> directory is not pushed or tracked with the files from your repository. </p>
+
+<p>To learn more about the <code>.git</code> folder and what it really contains, I suggest you <a href="http://www.gitguys.com/topics/the-git-directory/">the brief explanation of the various files and directories inside the <code>.git</code> directory</a>. </p>
+
+<h2>
+<a id="customization" class="anchor" href="#customization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Customization</h2>
+
+<h3>
+<a id="generated-file-name" class="anchor" href="#generated-file-name" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generated file name</h3>
+
+<p>You can change the name of the generated CHANGELOG file inside the <code>post-commit</code> file by modifying the variable <code>OUTPUT_FILE</code> to whatever you want. Some projects also use <code>HISTORY.md</code>, <code>NEWS.md</code> or <code>RELEASE.md</code>, but I suggest you stick to the convention.</p>
+
+<h3>
+<a id="output-format" class="anchor" href="#output-format" aria-hidden="true"><span class="octicon octicon-link"></span></a>Output format</h3>
+
+<p>The default setting of the script generates markdown, which can be seen in the <a href="CHANGELOG.md">CHANGELOG.md</a>.</p>
+
+<p>If you want to change the output format, you should read the <a href="http://git-scm.com/docs/pretty-formats">Git documentation for <code>pretty-formats</code></a> and change the <code>--format</code>argument in <code>post-commit</code> file according to your desired format.</p>
+
+<p>You can test your output format by executing the following command inside your git repository folder:</p>
+
+<div class="highlight highlight-bash"><pre>git --no-pager log --no-merges --format=<span class="pl-s"><span class="pl-pds">"</span>YOUR_FORMAT_GOES_HERE<span class="pl-pds">"</span></span></pre></div>
+
+<p>If you are happy with the result, just replace the command in the <code>post-commit</code> file with your command. 
+Don't forget to pipe the output in you're CHANGELOG with <code>&gt; $OUTPUT_FILE</code> at the end of the line.</p>
+
+<h2>
+<a id="how-it-works" class="anchor" href="#how-it-works" aria-hidden="true"><span class="octicon octicon-link"></span></a>How it works</h2>
+
+<p>The script uses <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">Git Hooks</a> to execute the <code>git log</code> command after every commit and write the output inside the <code>CHANGELOG.md</code> file.</p>
+
+<p>Since we want to add the changes in our <code>CHANGELOG.md</code> as well, we have to use <a href="https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History">Git's <code>--amend</code> feature</a> to change the previous commit and apply the changes from the script, too.</p>
+
+<p>By changing the last commit, we are triggering the <code>post-commit</code> hook another time, since the <code>--ammend</code> commit is a commit as well. To prevent an infite execution of this hook, we have to check, whether our generated <code>CHANGELOG.md</code> have have changed at all. If it is executed the second time, the file should not be different. </p>
+
+<p>We can check this by using the <a href="http://git-scm.com/docs/git-status"><code>git status</code> command with <code>--porcelain</code></a> and parse the output for our <code>$OUTPUT_FILE</code>. If the process returns a code higher than zero, we had a match and know  that we have a changed <code>CHANGELOG.md</code>, which we have to append to our previous commit.</p>
+
+<h2>
+<a id="why-i-dont-recommend-this-script" class="anchor" href="#why-i-dont-recommend-this-script" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why I don't recommend this script</h2>
+
+<p>To understand the idea behind a change log, I highly suggest reading <a href="http://keepachangelog.com/">Keep a CHANGELOG</a> and / or listening to the episode <a href="http://5by5.tv/changelog/127">127: Keep a CHANGELOG with Olivier Lacan</a>.</p>
+
+<p>It says</p>
+
+<blockquote>
+<p>A change log is a file which contains a curated, chronologically ordered list of notable changes for each version of an open source project.</p>
+</blockquote>
+
+<p>Even dough, this matches partly the generated change log by this script, since there are changes in chronologically order, the section about <a href="http://keepachangelog.com/#what-s-the-point-of-a-change-log-">What’s the point of a change log?</a> does not fit at all.</p>
+
+<blockquote>
+<p>To make it easier for users and contributors to see precisely what notable changes have been made between each release (or version) of the project.</p>
+</blockquote>
+
+<p>This script stupidly dumps all the commit logs into a single file, which doesn't help anybody in any way.</p>
+
+<p>You should realy consider if this is the right way to keep a changelog for your project and what the benefits are by using this script, despite the fact that someone does not have to execute <code>git log</code> by itself in the command line.</p>
+
+<h3>
+<a id="why-cant-people-just-use-a-git-log-diff" class="anchor" href="#why-cant-people-just-use-a-git-log-diff" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://keepachangelog.com/#why-can-t-people-just-use-a-code-git-log-code-diff-">Why can’t people just use a git log diff?</a>
+</h3>
+
+<blockquote>
+<p>Because log diffs are full of noise — by nature. They could not make a suitable change log even in a hypothetical project run by perfect humans who never make typos, never forget to commit new files, never miss any part of a refactoring. The purpose of a commit is to document one atomic step in the process by which the code evolves from one state to another. The purpose of a change log is to document the noteworthy differences between these states.</p>
+
+<p>As is the difference between good comments and the code itself, so is the difference between a change log and the commit log: one describes the why, the other the how.</p>
+</blockquote>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/MartinSeeler">MartinSeeler</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-31370927-4");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
