@@ -1,4 +1,14 @@
-### Add references to Keep a CHANGELOG (HEAD -> master)
+### Add MIT License (HEAD -> master)
+>Tue, 18 Aug 2015 00:02:51 +0200
+
+>Author: Martin Seeler (developer@chasmo.de)
+
+>Commiter: Martin Seeler (developer@chasmo.de)
+
+
+
+
+### Add references to Keep a CHANGELOG (origin/master, origin/HEAD)
 >Mon, 17 Aug 2015 23:49:41 +0200
 
 >Author: Martin Seeler (developer@chasmo.de)
@@ -8,7 +18,7 @@
 
 
 
-### Add more documentation to the README.md (origin/master, origin/HEAD)
+### Add more documentation to the README.md
 >Mon, 17 Aug 2015 23:06:00 +0200
 
 >Author: Martin Seeler (developer@chasmo.de)
