@@ -1,4 +1,14 @@
-### Add more documentation to the README.md (HEAD -> master)
+### Add references to Keep a CHANGELOG (HEAD -> master)
+>Mon, 17 Aug 2015 23:49:41 +0200
+
+>Author: Martin Seeler (developer@chasmo.de)
+
+>Commiter: Martin Seeler (developer@chasmo.de)
+
+
+
+
+### Add more documentation to the README.md (origin/master, origin/HEAD)
 >Mon, 17 Aug 2015 23:06:00 +0200
 
 >Author: Martin Seeler (developer@chasmo.de)
@@ -8,7 +18,7 @@
 
 
 
-### show better markdown format (origin/master, origin/HEAD)
+### show better markdown format
 >Thu, 28 Aug 2014 20:09:08 +0200
 
 >Author: Martin Seeler (mseeler@avantgarde-labs.de)
