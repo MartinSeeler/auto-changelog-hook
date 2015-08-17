@@ -1,4 +1,14 @@
-### show better markdown format (HEAD, master)
+### Add more documentation to the README.md (HEAD -> master)
+>Mon, 17 Aug 2015 23:06:00 +0200
+
+>Author: Martin Seeler (developer@chasmo.de)
+
+>Commiter: Martin Seeler (developer@chasmo.de)
+
+
+
+
+### show better markdown format (origin/master, origin/HEAD)
 >Thu, 28 Aug 2014 20:09:08 +0200
 
 >Author: Martin Seeler (mseeler@avantgarde-labs.de)
@@ -9,7 +19,7 @@ The format of the log changed, so that it will be rendered in markdown (and ther
 
 
 
-### Fixed Usage (origin/master, origin/HEAD)
+### Fixed Usage
 >Wed, 12 Jun 2013 14:18:27 +0300
 
 >Author: Martin Seeler (developer@chasmo.de)
