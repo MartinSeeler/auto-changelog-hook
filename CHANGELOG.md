@@ -1,4 +1,25 @@
-### Add MIT License (HEAD -> master)
+### Add grep -c instead of wc -l (HEAD -> master)
+>Mon, 6 Apr 2020 06:52:06 +0200
+
+>Author: Martin Seeler (developer@chasmo.de)
+
+>Commiter: Martin Seeler (developer@chasmo.de)
+
+Closes issue #6
+
+
+
+### Update post-commit
+>Sun, 5 Apr 2020 12:09:49 -0400
+
+>Author: Lucas Ramage (oxr463@gmx.us)
+
+>Commiter: GitHub (noreply@github.com)
+
+
+
+
+### Add MIT License
 >Tue, 18 Aug 2015 00:02:51 +0200
 
 >Author: Martin Seeler (developer@chasmo.de)
@@ -8,7 +29,7 @@
 
 
 
-### Add references to Keep a CHANGELOG (origin/master, origin/HEAD)
+### Add references to Keep a CHANGELOG
 >Mon, 17 Aug 2015 23:49:41 +0200
 
 >Author: Martin Seeler (developer@chasmo.de)
