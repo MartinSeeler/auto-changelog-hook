@@ -1,5 +1,7 @@
 #!/bin/sh
-# by Martin Seeler
+# Copyright (c) 2013 Martin Seeler
+# SPDX-License-Identifier: MIT
+set -eu
 
 # destination of the final changelog file
 OUTPUT_FILE=CHANGELOG.md
